@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pods-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: eks-pods
+  template:
+    metadata:
+      labels:
+        app: eks-pods
+    spec:
+      serviceAccountName: pod-service-account
+      containers:
+      - name: eks-repo
+        image: 767397700961.dkr.ecr.ap-south-1.amazonaws.com/eks-repo:latest
+        ports:
+        - name: http
+          containerPort: 8080
+        imagePullPolicy: IfNotPresent
